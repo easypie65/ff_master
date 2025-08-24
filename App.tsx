@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import type { QuadraticProblem, UserInputs, ValidationResults } from './types';
 import { CheckCircleIcon, XCircleIcon } from './components/Icons';
@@ -42,10 +41,10 @@ const App: React.FC = () => {
   const generateProblem = useCallback(() => {
     let a = 0;
     while (a === 0) {
-      a = getRandomInt(-5, 5);
+      a = getRandomInt(-3, 3);
     }
-    const p = getRandomInt(-10, 10);
-    const q = getRandomInt(-20, 20);
+    const p = getRandomInt(-5, 5);
+    const q = getRandomInt(-10, 10);
 
     const b = -2 * a * p;
     const c = a * p * p + q;
@@ -75,7 +74,8 @@ const App: React.FC = () => {
     if (!problem) return;
     const { general } = problem;
     const correct_step1_factor = general.b / general.a;
-    const isCorrect = parseFloat(userInputs.step1_factor) === correct_step1_factor;
+    // The UI shows the sign, so the user should input the absolute value.
+    const isCorrect = parseFloat(userInputs.step1_factor) === Math.abs(correct_step1_factor);
     setValidation(prev => ({ ...prev, step1_factor: isCorrect }));
   };
 
